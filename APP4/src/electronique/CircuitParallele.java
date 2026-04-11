@@ -15,16 +15,14 @@ public class CircuitParallele extends Circuit {
 
     @Override
     public double calculerResistance() {
-        double resistance = 0;
         double total = 0;
         for (Composant composant : composants) {
-            double response = composant.calculerResistance();
-            double response2 = Math.pow(response, -1);
-            total += response2;
+            double resistance = composant.calculerResistance();
+            total += 1 /resistance;
 
 
         }
-        resistance = Math.pow(total, -1);
-        return resistance;
+
+        return 1 /total;
     }
 }

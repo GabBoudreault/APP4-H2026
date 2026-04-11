@@ -1,7 +1,11 @@
 package app;
 
+import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
+import com.fasterxml.jackson.databind.node.JsonNodeType;
 import electronique.CircuitParallele;
 import electronique.CircuitSerie;
 import electronique.Composant;
@@ -9,6 +13,8 @@ import electronique.Resistance;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,14 +25,25 @@ public class CircuitBuilder {
 
     }
 
-    public Composant construireCircuit(String string) throws IOException {
-        List<Composant> listecomposants = new ArrayList<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode donnesCircuits = objectMapper.readTree(new File(string));
-        return (Composant) listecomposants;
+    public Composant construireCircuit(String cheminFichier) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
 
+            JsonNode jsonNode = mapper.readTree(new File(cheminFichier));
 
+            return lireComposant(jsonNode);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+
+
+
+
+
+
 
 
     private Composant lireComposant(JsonNode  jsonNode) throws IOException {
@@ -56,9 +73,8 @@ public class CircuitBuilder {
         }
 
 
-
     }
-
 }
+
 
 

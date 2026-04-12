@@ -28,10 +28,10 @@ public class CircuitBuilder {
     public Composant construireCircuit(String cheminFichier) {
         try {
             ObjectMapper mapper = new ObjectMapper();
+            JsonNode donneesCicrcuits = mapper.readTree(new File(cheminFichier));
+            JsonNode circuitNode = donneesCicrcuits.get("circuit");
 
-            JsonNode jsonNode = mapper.readTree(new File(cheminFichier));
-
-            return lireComposant(jsonNode);
+            return lireComposant(circuitNode);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -47,6 +47,8 @@ public class CircuitBuilder {
 
 
     private Composant lireComposant(JsonNode  jsonNode) throws IOException {
+
+
         String type = jsonNode.get("type").asText();
 
         if (Objects.equals(type, "resistance")) {
@@ -58,19 +60,22 @@ public class CircuitBuilder {
             List<Composant> listecomposants = new ArrayList<>();
 
             for (JsonNode composantNode : jsonNode.get("composants")) {
-                listecomposants.add(construireCircuit(String.valueOf(composantNode)));
+                listecomposants.add(lireComposant(composantNode));
 
             }
             return new CircuitSerie(listecomposants);
 
 
-        } else {
+        } else if (Objects.equals(type, "parallele")) {
             List<Composant> listecomposants = new ArrayList<>();
-            for (JsonNode composantNode : jsonNode.get("parallele")) {
-                listecomposants.add(construireCircuit(String.valueOf(composantNode)));
+            for (JsonNode composantNode : jsonNode.get("composants")) {
+                listecomposants.add(lireComposant(composantNode));
             }
             return new CircuitParallele(listecomposants);
+
         }
+        throw new RuntimeException("Type inconnu dans le Json : "+ type);
+
 
 
     }

@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CircuitSerie extends Circuit {
-    public List<Composant> composants;
-    public CircuitSerie(List<Composant> list) {
-        super();
+    public CircuitSerie(List<Composant> composants) {
+        this.composants = composants;
 
 
 

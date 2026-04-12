@@ -9,7 +9,7 @@ public abstract class Circuit extends Composant {
 
 
     public Circuit() {
-        List<Composant>composants = new ArrayList<>();
+
 
     }
 }

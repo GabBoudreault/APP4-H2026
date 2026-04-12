@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CircuitParallele extends Circuit {
-    public List<Composant> composants;
+
 
     public CircuitParallele(List<Composant> composants) {
-        super();
+        this.composants =composants;
 
 
     }

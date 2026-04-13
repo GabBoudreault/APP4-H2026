@@ -28,9 +28,8 @@ public class CircuitApp {
             try {
 
 
-            response = scanner.nextInt();}
-            catch (InputMismatchException e){
-                System.out.println("Il faut entrer un chiffre de 1 à 3.");
+                response = scanner.nextInt();}catch (InputMismatchException e){
+                System.out.println("Entrez un chiffre de 1 à 3.");
                 scanner.nextLine();
             }
 
@@ -38,15 +37,11 @@ public class CircuitApp {
 
 
 
+
+
+
+
             if (response >= 1 && response <= 3){
-                try {
-
-
-                    response = scanner.nextInt();}
-                catch (InputMismatchException e){
-                    System.out.println("Il faut entrer un chiffre de 1 à 3.");
-                }
-
                 try {String cheminFichier = fichiersJson[response-1];
                     CircuitBuilder circuitBuilder = new CircuitBuilder();
                     Composant circuit = circuitBuilder.construireCircuit(cheminFichier);
@@ -59,7 +54,7 @@ public class CircuitApp {
 
             }
             else if (response == 0){
-                System.out.println("Vous avez quitter le programme. Merci!");
+                System.out.println("Vous avez quitté le programme. Merci!");
                 scanner.close();
             }
 

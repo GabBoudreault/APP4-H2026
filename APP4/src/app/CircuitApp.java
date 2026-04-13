@@ -3,7 +3,6 @@ package app;
 import electronique.Composant;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -12,7 +11,7 @@ public class CircuitApp {
 
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+     static void main(String[] args)  {
         Scanner scanner = new Scanner(System.in);
         String[] fichiersJson = {"APP4/donnees/fichiers_json/complexe_industriel_zone_nord.json",
                 "APP4/donnees/fichiers_json/eclairage_public_quartier.json",
@@ -26,13 +25,28 @@ public class CircuitApp {
             System.out.println("-----> [2]- Éclairage public du quartier");
             System.out.println("-----> [3]- Réseau de secours de l'hôpital");
             System.out.println("[0]- Quitter le programme.");
-            response = scanner.nextInt();
+            try {
+
+
+            response = scanner.nextInt();}
+            catch (InputMismatchException e){
+                System.out.println("Il faut entrer un chiffre de 1 à 3.");
+                scanner.nextLine();
+            }
 
 
 
 
 
             if (response >= 1 && response <= 3){
+                try {
+
+
+                    response = scanner.nextInt();}
+                catch (InputMismatchException e){
+                    System.out.println("Il faut entrer un chiffre de 1 à 3.");
+                }
+
                 try {String cheminFichier = fichiersJson[response-1];
                     CircuitBuilder circuitBuilder = new CircuitBuilder();
                     Composant circuit = circuitBuilder.construireCircuit(cheminFichier);
@@ -40,7 +54,7 @@ public class CircuitApp {
                     System.out.println("La résistance du circuit est "+resistance+" ohms.");
 
                 }catch (Exception e){
-                    System.out.println("Fichier introuvable ou inconnu.");
+                    System.out.println("Fichier introuvable.");
                 }
 
             }
@@ -48,10 +62,11 @@ public class CircuitApp {
                 System.out.println("Vous avez quitter le programme. Merci!");
                 scanner.close();
             }
-            else {
-                throw new InputMismatchException("Veuillez entrez un chiffre de 1 à 3.");
-            }
+
+
+
         }
+
 
 
     }

@@ -1,15 +1,10 @@
 package app;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.FloatNode;
-import electronique.Circuit;
-import electronique.CircuitSerie;
 import electronique.Composant;
-import electronique.Resistance;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class CircuitApp {
@@ -17,61 +12,45 @@ public class CircuitApp {
 
     }
 
-    public static void main(String[] args) {
-        System.out.println("---Bonjour, choisissez un fichier Json----");
-        System.out.println("----> [1]: Complexe_industriel_nord\n" + "----> [2]: Eclairage_public\n" + "----> [3]: reseau_secours");
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
-        int reponse = scanner.nextInt();
+        String[] fichiersJson = {"APP4/donnees/fichiers_json/complexe_industriel_zone_nord.json",
+                "APP4/donnees/fichiers_json/eclairage_public_quartier.json",
+                "APP4/donnees/fichiers_json/reseau_secours_hopital.json"
+        };
+
+        int response = -1;
+        while (response != 0) {
+            System.out.println("Bonjour! Veuillez choisir un fichier Json.");
+            System.out.println("-----> [1]- Complexe industriel de la zone nord");
+            System.out.println("-----> [2]- Éclairage public du quartier");
+            System.out.println("-----> [3]- Réseau de secours de l'hôpital");
+            System.out.println("[0]- Quitter le programme.");
+            response = scanner.nextInt();
 
 
 
 
-        if (reponse == 1)
-            try {
-                FileReader fileReader1 = new FileReader("src/donnees/fichiers_json/complexe_industriel_zone_nord.json");
-                CircuitBuilder circuitBuilder = new CircuitBuilder();
-                Composant circuit = circuitBuilder.construireCircuit("src/donnees/fichiers_json/complexe_industriel_zone_nord.json");
-                double resistance = circuit.calculerResistance();
-                System.out.println("Résistance équivalente du dossier #1 est = "+resistance+" ohms.");
 
+            if (response >= 1 && response <= 3){
+                try {String cheminFichier = fichiersJson[response-1];
+                    CircuitBuilder circuitBuilder = new CircuitBuilder();
+                    Composant circuit = circuitBuilder.construireCircuit(cheminFichier);
+                    double resistance = circuit.calculerResistance();
+                    System.out.println("La résistance du circuit est "+resistance+" ohms.");
 
+                }catch (Exception e){
+                    System.out.println("Fichier introuvable ou inconnu.");
+                }
 
-
-
-                fileReader1.close();
-
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
-        else if (reponse == 2) {
-            try {
-                FileReader fileReader2 = new FileReader("src/donnees/fichiers_json/eclairage_public_quartier.json");
-                CircuitBuilder circuitBuilder =new CircuitBuilder();
-                Composant circuit = circuitBuilder.construireCircuit("src/donnees/fichiers_json/eclairage_public_quartier.json");
-                double resistance = circuit.calculerResistance();
-                System.out.println("Résistance équivalente du dossier #2 est = "+resistance+" ohms.");
-
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
+            else if (response == 0){
+                System.out.println("Vous avez quitter le programme. Merci!");
+                scanner.close();
             }
-
-        } else if (reponse == 3) {
-
-
-            try {
-                FileReader fileReader3 = new FileReader("src/donnees/fichiers_json/reseau_secours_hopital.json");
-                CircuitBuilder circuitBuilder = new CircuitBuilder();
-                Composant circuit = circuitBuilder.construireCircuit("src/donnees/fichiers_json/reseau_secours_hopital.json");
-                double resistance = circuit.calculerResistance();
-                System.out.println("Résistance équivalente du dossier #3 est = "+resistance+" ohms.");
-
-
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
+            else {
+                throw new InputMismatchException("Veuillez entrez un chiffre de 1 à 3.");
             }
-        } else {
-            System.out.println("Entrez un chiffre entre 1 et 3.");
-
         }
 
 

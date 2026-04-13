@@ -20,7 +20,10 @@ public class Resistance extends Composant {
     }
 
     public void setResistance(double resistance) {
-        if(resistance >= 0){resistance = resistance;}
+        if(resistance >= 0){this.resistance = resistance;}
+        else {
+            throw new IllegalArgumentException("Résistance invalide");
+        }
 
     }
 }

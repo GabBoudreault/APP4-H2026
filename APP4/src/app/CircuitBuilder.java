@@ -34,7 +34,8 @@ public class CircuitBuilder {
             return lireComposant(circuitNode);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Input/Output invalide.");
+
             return null;
         }
     }

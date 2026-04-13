@@ -21,9 +21,9 @@ public class CircuitApp {
         int response = -1;
         while (response != 0) {
             System.out.println("Bonjour! Veuillez choisir un fichier Json.");
-            System.out.println("-----> [1]- Complexe industriel de la zone nord");
-            System.out.println("-----> [2]- Éclairage public du quartier");
-            System.out.println("-----> [3]- Réseau de secours de l'hôpital");
+            System.out.println("-----> [1]- Complexe industriel de la zone nord.");
+            System.out.println("-----> [2]- Éclairage public du quartier.");
+            System.out.println("-----> [3]- Réseau de secours de l'hôpital.");
             System.out.println("[0]- Quitter le programme.");
             try {
 
@@ -46,7 +46,7 @@ public class CircuitApp {
                     CircuitBuilder circuitBuilder = new CircuitBuilder();
                     Composant circuit = circuitBuilder.construireCircuit(cheminFichier);
                     double resistance = circuit.calculerResistance();
-                    System.out.println("La résistance du circuit est "+resistance+" ohms.");
+                    System.out.println("La résistance équivalente du circuit est "+resistance+" ohms.");
 
                 }catch (Exception e){
                     System.out.println("Fichier introuvable.");

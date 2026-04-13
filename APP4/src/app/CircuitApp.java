@@ -20,11 +20,12 @@ public class CircuitApp {
 
         int response = -1;
         while (response != 0) {
-            System.out.println("Bonjour! Veuillez choisir un fichier Json.");
+            System.out.println("Bonjour! Veuillez choisir un circuit.");
             System.out.println("-----> [1]- Complexe industriel de la zone nord.");
             System.out.println("-----> [2]- Éclairage public du quartier.");
             System.out.println("-----> [3]- Réseau de secours de l'hôpital.");
             System.out.println("[0]- Quitter le programme.");
+
             try {
 
 
